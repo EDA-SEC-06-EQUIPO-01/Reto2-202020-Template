@@ -39,9 +39,6 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
-
-
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
@@ -49,7 +46,51 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def main():
+    movies_dir = "themoviesdb/"
+    details = movies_dir + "SmallMoviesDetailsCleaned.csv"
+    casting = movies_dir + "MoviesCastingRaw-small.csv"
+    while True:
+        controller.printMenu()  # imprimir el menu de opciones en consola
+        # leer opción ingresada
+        inputs = input("Seleccione una opción para continuar\n")
+        if len(inputs) > 0:
+
+            if int(inputs[0]) == 1:  # opcion 1
+                lista_details = controller.load_csv(
+                    details, impl="ARRAY_LIST", cmpfunction=None
+                )
+                lista_casting = controller.load_csv(
+                    casting, impl="ARRAY_LIST", cmpfunction=None
+                )
+
+                print("En la lista details.")
+                print(f"Se han cargado {lt.size(lista_details)}")
+
+                # Impresión primer elemento details
+                print("\tDel primer elemento:")
+                fe = lt.firstElement(lista_details)
+                print(f"\t\tTítulo: {fe['title']}")
+                print(f"\t\tFecha: {fe['release_date']}")
+                print(f"\t\tPromedio votos: {fe['vote_average']}")
+                print(f"\t\tNúmero votos: {fe['vote_count']}")
+                print(f"\t\tLenguaje original: {fe['original_language']}")
+
+                # Impresión último elemento details
+                print("\tDel último elemento:")
+                le = lt.lastElement(lista_details)
+                print(f"\t\tTítulo: {fe['title']}")
+                print(f"\t\tFecha: {fe['release_date']}")
+                print(f"\t\tPromedio votos: {fe['vote_average']}")
+                print(f"\t\tNúmero votos: {fe['vote_count']}")
+                print(f"\t\tLenguaje original: {fe['original_language']}")
+
+            elif int(inputs[0]) == 0:  # opcion 0, salir
+                sys.exit(0)
+
+
+main()

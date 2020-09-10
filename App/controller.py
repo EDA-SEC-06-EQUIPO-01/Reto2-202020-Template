@@ -23,9 +23,6 @@
 import config as cf
 from App import model
 import csv
-import sys
-
-
 
 
 """
@@ -39,6 +36,8 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+
+
 def printMenu():
     """
     Imprime el menu de opciones
@@ -47,32 +46,15 @@ def printMenu():
     print("1- Cargar Datos")
     print("0- Salir")
 
-
-
-
-
-
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def main():
-    movies_dir = "themoviesdb/"
-    details = movies_dir + "SmallMoviesDetailsCleaned.csv"
-    casting = movies_dir + "MoviesCastingRaw-small.csv"
-    while True:
-            printMenu()  # imprimir el menu de opciones en consola
-            # leer opción ingresada
-            inputs = input("Seleccione una opción para continuar\n")
-            if len(inputs) > 0:
 
-                if int(inputs[0]) == 1:  # opcion 1
-                    lista_details = model.load_CSV(
-                        details, impl="ARRAY_LIST", cmpfunction=None
-                    )
-                    lista_casting = model.load_CSV(
-                        casting, impl="ARRAY_LIST", cmpfunction=None
-                    )
-                elif int(inputs[0]) == 0:  # opcion 0, salir
-                    sys.exit(0)
+
+def timer(func):
+    return model.timer(func)
+
+
+def load_csv(name: str, sep=';', impl='SINGLE_LINKED', cmpfunction=None):
+    return model.load_csv(name, sep, impl, cmpfunction)
