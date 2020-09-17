@@ -27,6 +27,10 @@ from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
 
+movies_dir = "themoviesdb/"
+details = movies_dir + "SmallMoviesDetailsCleaned.csv"
+casting = movies_dir + "MoviesCastingRaw-small.csv"
+
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones y por cada seleccion
@@ -51,9 +55,7 @@ operación seleccionada.
 # ___________________________________________________
 
 def main():
-    movies_dir = "themoviesdb/"
-    details = movies_dir + "SmallMoviesDetailsCleaned.csv"
-    casting = movies_dir + "MoviesCastingRaw-small.csv"
+
     while True:
         controller.printMenu()  # imprimir el menu de opciones en consola
         # leer opción ingresada
