@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+
 assert config
 
 movies_dir = "themoviesdb/"
@@ -54,6 +55,7 @@ operación seleccionada.
 #  Menu principal
 # ___________________________________________________
 
+
 def main():
 
     while True:
@@ -63,12 +65,19 @@ def main():
         if len(inputs) > 0:
 
             if int(inputs[0]) == 1:  # opcion 1
-                lista_details = controller.load_csv(
-                    details, impl="ARRAY_LIST", cmpfunction=None
-                )
-                lista_casting = controller.load_csv(
-                    casting, impl="ARRAY_LIST", cmpfunction=None
-                )
+                # lista_details = controller.load_csv(
+                #     details, impl="ARRAY_LIST", cmpfunction=None
+                # )
+                # lista_casting = controller.load_csv(
+                #     casting, impl="ARRAY_LIST", cmpfunction=None
+                # )
+
+                # IMPORTANT
+                # interface to charge data into a map
+                # add load factor
+                mp = controller.load_csv_map(casting, "director_name")
+
+                # replace all of below
 
                 print("En la lista details.")
                 print(f"Se han cargado {lt.size(lista_details)}")

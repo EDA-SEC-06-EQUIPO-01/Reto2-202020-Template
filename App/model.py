@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+
 assert config
 
 """
@@ -47,23 +48,54 @@ def timer(func):
             f"El tiempo que tardó la funcion {func.__name__} fue de {t2 - t1} segundos."
         )
         return ret
+
     return inner
 
 
 @timer
-def load_csv(name: str, sep=';', impl='SINGLE_LINKED', cmpfunction=None):
+def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
     lst = lt.newList(impl, cmpfunction)
     print(f"Cargando archivo {name} {'.'*5}")
     dialect = csv.excel()
     dialect.delimiter = sep
     try:
-        with open(config.data_dir + name, encoding='utf-8') as csvfile:
+        with open(config.data_dir + name, encoding="utf-8") as csvfile:
             row = csv.DictReader(csvfile, dialect=dialect)
             for el in row:
                 lt.addLast(lst, el)
     except:
         print("Hubo un error con la carga del archivo")
     return lst
+
+
+def cmpkey(element, node):
+    return 0 if element == node["key"] else 1
+
+
+def load_csv_map(filepath: str, attribute, impl="CHAINING"):
+    sep = ";"
+    map = mp.newMap(1000, comparefunction=cmpkey)
+    print(f"Cargando archivo {filepath} {'.'*5}")
+    dialect = csv.excel()
+    dialect.delimiter = sep
+    try:
+        with open(config.data_dir + filepath, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for el in row:
+                att = el[attribute]
+                if mp.contains(map, att):
+                    tmp = mp.get(map, att)["value"]
+                    lt.addLast(tmp, el)
+                    mp.put(map, att, tmp)
+                else:
+                    tmp_lst = lt.newList()
+                    lt.addLast(tmp_lst, el)
+                    mp.put(map, att, tmp_lst)
+
+    except:
+        print("Hubo un error con la carga del archivo")
+    return map
+
 
 # Funciones para agregar informacion al catalogo
 

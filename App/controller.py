@@ -46,6 +46,7 @@ def printMenu():
     print("1- Cargar Datos")
     print("0- Salir")
 
+
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
@@ -56,5 +57,9 @@ def timer(func):
     return model.timer(func)
 
 
-def load_csv(name: str, sep=';', impl='SINGLE_LINKED', cmpfunction=None):
+def load_csv_map(filepath: str, attribute, impl="CHAINING"):
+    return model.load_csv_map(filepath, attribute, impl)
+
+
+def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
     return model.load_csv(name, sep, impl, cmpfunction)
