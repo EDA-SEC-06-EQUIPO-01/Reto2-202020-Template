@@ -56,13 +56,13 @@ def load_csv(name: str, sep=';', impl='SINGLE_LINKED', cmpfunction=None):
     print(f"Cargando archivo {name} {'.'*5}")
     dialect = csv.excel()
     dialect.delimiter = sep
-    try:
-        with open(config.data_dir + name, encoding='utf-8') as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for el in row:
-                lt.addLast(lst, el)
-    except:
-        print("Hubo un error con la carga del archivo")
+    # try:
+    with open(config.data_dir + name, encoding='utf-8') as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for el in row:
+            lt.addLast(lst, el)
+    # except:
+    #    print("Hubo un error con la carga del archivo")
     return lst
 
 # Funciones para agregar informacion al catalogo

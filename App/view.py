@@ -62,14 +62,14 @@ def main():
 
             if int(inputs[0]) == 1:  # opcion 1
                 lista_details = controller.load_csv(
-                    details, impl="ARRAY_LIST", cmpfunction=None
+                    details, cmpfunction=None
                 )
                 lista_casting = controller.load_csv(
-                    casting, impl="ARRAY_LIST", cmpfunction=None
+                    casting, cmpfunction=None
                 )
 
                 print("En la lista details.")
-                print(f"Se han cargado {lt.size(lista_details)}")
+                print(f"Se han cargado {lt.size(lista_details)} elementos")
 
                 # Impresión primer elemento details
                 print("\tDel primer elemento:")
