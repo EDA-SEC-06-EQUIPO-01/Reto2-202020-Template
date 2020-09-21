@@ -23,9 +23,15 @@
 import sys
 import config
 from DISClib.ADT import list as lt
+from DISClib.ADT import map as mp
 from DISClib.DataStructures import listiterator as it
 from App import controller
+
 assert config
+
+movies_dir = "themoviesdb/"
+details = movies_dir + "SmallMoviesDetailsCleaned.csv"
+casting = movies_dir + "MoviesCastingRaw-small.csv"
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -50,10 +56,9 @@ operación seleccionada.
 #  Menu principal
 # ___________________________________________________
 
+
 def main():
-    movies_dir = "themoviesdb/"
-    details = movies_dir + "SmallMoviesDetailsCleaned.csv"
-    casting = movies_dir + "MoviesCastingRaw-small.csv"
+
     while True:
         controller.printMenu()  # imprimir el menu de opciones en consola
         # leer opción ingresada
@@ -61,33 +66,50 @@ def main():
         if len(inputs) > 0:
 
             if int(inputs[0]) == 1:  # opcion 1
-                lista_details = controller.load_csv(
-                    details, cmpfunction=None
-                )
-                lista_casting = controller.load_csv(
-                    casting, cmpfunction=None
-                )
+                # lista_details = controller.load_csv(
+                #     details, impl="ARRAY_LIST", cmpfunction=None
+                # )
+                # lista_casting = controller.load_csv(
+                #     casting, impl="ARRAY_LIST", cmpfunction=None
+                # )
 
-                print("En la lista details.")
-                print(f"Se han cargado {lt.size(lista_details)} elementos")
+                # IMPORTANT
+                # interface to charge data into a map
+                # add load factor
 
-                # Impresión primer elemento details
-                print("\tDel primer elemento:")
-                fe = lt.firstElement(lista_details)
-                print(f"\t\tTítulo: {fe['title']}")
-                print(f"\t\tFecha: {fe['release_date']}")
-                print(f"\t\tPromedio votos: {fe['vote_average']}")
-                print(f"\t\tNúmero votos: {fe['vote_count']}")
-                print(f"\t\tLenguaje original: {fe['original_language']}")
+                casting_key = "director_name"
+                details_key = "genres"
 
-                # Impresión último elemento details
-                print("\tDel último elemento:")
-                le = lt.lastElement(lista_details)
-                print(f"\t\tTítulo: {fe['title']}")
-                print(f"\t\tFecha: {fe['release_date']}")
-                print(f"\t\tPromedio votos: {fe['vote_average']}")
-                print(f"\t\tNúmero votos: {fe['vote_count']}")
-                print(f"\t\tLenguaje original: {fe['original_language']}")
+                mp_casting = controller.load_csv_map(casting, casting_key)
+                mp_details = controller.load_csv_map(details, details_key)
+
+                # Prueba en consola de que carga los datos correctamente
+
+                print("Se han cargado los mapas details y casting.")
+                print(
+                    f"Del mapa casting, se han cargado {mp.size(mp_casting)} elementos")
+                print(
+                    f"Del mapa details, se han cargado {mp.size(mp_details)} elementos")
+
+                iteration = it.newIterator(mp.keySet(mp_casting))
+                print(
+                    f"\nLas llaves del mapa casting, respecto a la llave {casting_key} son:")
+                while it.hasNext(iteration):
+                    key = it.next(iteration)
+                    print(f'\t{key}')
+
+                iteration = it.newIterator(mp.keySet(mp_details))
+                print(
+                    f"\nLas llaves del mapa details, respecto a la llave {details_key} son:")
+                while it.hasNext(iteration):
+                    key = it.next(iteration)
+                    print(f'\t{key}')
+
+                print(
+                    f"Como prueba final, se mostrará el valor asociado a la llave '{key}' en el map_details:\n")
+                print(mp.get(mp_details, key))
+
+                print()
 
             elif int(inputs[0]) == 0:  # opcion 0, salir
                 sys.exit(0)
