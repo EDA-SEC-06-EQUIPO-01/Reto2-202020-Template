@@ -20,6 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from App.model import load_csv_map_byAttribute
 import config as cf
 from App import model
 import csv
@@ -57,8 +58,8 @@ def timer(func):
     return model.timer(func)
 
 
-def load_csv_map(filepath: str, attribute, impl="CHAINING"):
-    return model.load_csv_map(filepath, attribute, impl)
+def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING"):
+    return model.load_csv_map_byAttribute(filepath, attribute, impl)
 
 
 def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):

@@ -80,8 +80,10 @@ def main():
                 casting_key = "director_name"
                 details_key = "genres"
 
-                mp_casting = controller.load_csv_map(casting, casting_key)
-                mp_details = controller.load_csv_map(details, details_key)
+                mp_casting = controller.load_csv_map_byAttribute(
+                    casting, casting_key)
+                mp_details = controller.load_csv_map_byAttribute(
+                    details, details_key)
 
                 # Prueba en consola de que carga los datos correctamente
 

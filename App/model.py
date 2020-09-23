@@ -73,7 +73,7 @@ def cmpkey(element, node):
 
 
 @timer
-def load_csv_map(filepath: str, attribute, impl="CHAINING"):
+def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING"):
     sep = ";"
     map = mp.newMap(1000, comparefunction=cmpkey)
     print(f"Cargando archivo {filepath} {'.'*5}")
@@ -105,6 +105,8 @@ def load_csv_map(filepath: str, attribute, impl="CHAINING"):
 # Funciones de consulta
 # ==============================
 
+def req1_conocer_un_director():
+    1
 
 # ==============================
 # Funciones de Comparacion
