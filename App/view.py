@@ -69,8 +69,10 @@ def main():
                 casting_key = "id"
                 details_key = "id"
 
-                mp_casting = controller.load_csv_map_byAtts(casting, casting_key)
-                mp_details = controller.load_csv_map_byAtts(details, details_key)
+                mp_casting = controller.load_csv_map_byAtts(
+                    casting, casting_key)
+                mp_details = controller.load_csv_map_byAtts(
+                    details, details_key)
 
                 print(
                     f"Se crearon los maps:\n\tcasting, con {mp.size(mp_casting)} elementos, ordenado por la llave {casting_key}\n\tdetails, con {mp.size(mp_details)} elementos, ordenado por la llave {details_key}"
@@ -79,7 +81,8 @@ def main():
                 productora = input(
                     "Digite la productora sobre la cual este interesado:\n"
                 )
-                p = controller.load_csv_map_byAttribute(details, "production_companies")
+                p = controller.load_csv_map_byAttribute(
+                    details, "production_companies")
 
                 lista, longitud, promedio = controller.descubrir_productoras(
                     p, productora
@@ -98,12 +101,32 @@ def main():
             elif int(inputs[0]) == 3:
                 pass
             elif int(inputs[0]) == 4:
+                nombre_actor = input(
+                    "Digite el nombre del actor que desea conocer:\n")
+
+                try:
+                    respuesta = controller.req3(
+                        casting, nombre_actor, mp_details, mp_casting)
+                    print(
+                        f"Sobre el actor {nombre_actor}:\nParticipó en las películas:\n")
+                    res_iter = it.newIterator(respuesta[0])
+                    while it.hasNext(res_iter):
+                        print(f'\t{it.next(res_iter)}')
+                    print(f"\nEn total, son {respuesta[1]} películas.")
+                    print(
+                        f"Sus películas obtuvieron una calificación promedio de {respuesta[2]}")
+                except:
+                    print("Debe cargar los datos primero!\n")
+                    continue
+
                 pass
             elif int(inputs[0]) == 5:  # Reto 4
-                genero = input("Digite el género sobre el cuál desea trabajar:\n")
+                genero = input(
+                    "Digite el género sobre el cuál desea trabajar:\n")
                 g = controller.load_csv_map_byAttribute(details, "genres")
 
-                lista, longitud, promedio = controller.entender_genero(g, genero)
+                lista, longitud, promedio = controller.entender_genero(
+                    g, genero)
 
                 cont = 0
                 print("Las películas que tienen dicho género son\n")

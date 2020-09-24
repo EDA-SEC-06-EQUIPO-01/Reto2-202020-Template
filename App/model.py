@@ -77,7 +77,8 @@ def cmpkey(element, node):
 @timer
 def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING", loadfactor=1.0):
     sep = ";"
-    map = mp.newMap(1000, comparefunction=cmpkey, maptype=impl, loadfactor=loadfactor)
+    map = mp.newMap(1000, comparefunction=cmpkey,
+                    maptype=impl, loadfactor=loadfactor)
     print(f"Cargando archivo {filepath} {'.'*5}")
     dialect = csv.excel()
     dialect.delimiter = sep
@@ -105,7 +106,8 @@ def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING", loadfact
 @timer
 def load_csv_map_byAtts(filepath: str, atts, impl="CHAINING", loadfactor=1.0):
     sep = ";"
-    map = mp.newMap(1000, comparefunction=cmpkey, maptype=impl, loadfactor=loadfactor)
+    map = mp.newMap(1000, comparefunction=cmpkey,
+                    maptype=impl, loadfactor=loadfactor)
     print(f"Cargando archivo {filepath} {'.'*5}")
     dialect = csv.excel()
     dialect.delimiter = sep
@@ -135,19 +137,31 @@ def load_csv_map_byAtts(filepath: str, atts, impl="CHAINING", loadfactor=1.0):
 # ==============================
 # Funciones de consulta
 # ==============================
+
 @timer
-def req3_conocer_un_actor(
-    filepath_casting: str, nombre: str, casting_por_id, details_por_id
-):
+def req3_conocer_un_actor(filepath_casting: str, nombre: str, mp_details, mp_casting):
     mp_actores = load_csv_map_byAtts(
-        filepath_casting,
-        ("actor1_name", "actor2_name", "actor3_name", "actor4_name", "actor5_name"),
-    )
+        filepath_casting, ("actor1_name", "actor2_name", "actor3_name", "actor4_name", "actor5_name"))
     try:
-        actor = mp.get(mp_actores, nombre)
-        print(actor)
+        actor = mp.get(mp_actores, nombre)['value']
+        actor_it = it.newIterator(actor)
+
+        movies = lt.newList()
+        votes = []
+        while it.hasNext(actor_it):
+            movie = dict(it.next(actor_it))
+            det_movie = dict(lt.firstElement(
+                dict((mp.get(mp_details, movie['id'])))['value']))
+            lt.addLast(movies, det_movie['title'])
+            votes.append(
+                float(det_movie['vote_average']))
+        media = sum(votes)/len(votes)
+        return movies, mp.size(actor), round(media, 2)
+
     except:
-        print(f"El actor {nombre} no existe en el archivo csv: {filepath_casting}")
+        print(
+            f"El actor {nombre} no existe en el archivo csv.")
+        return None
 
 
 def descubrir_productoras(map_productoras, prod):
