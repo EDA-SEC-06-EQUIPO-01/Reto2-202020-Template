@@ -118,6 +118,23 @@ def main():
                 print()
             elif int(inputs[0]) == 6:
                 pais = input("Digite el pais de interes:\n")
+                try:
+                    p = controller.load_csv_map_byAttribute(
+                        details, "production_countries"
+                    )
+
+                    list, directors = controller.pel_countrie(p, mp_casting, pais)
+                    c = 0
+                    for i in h.travel(list):
+                        t = i["original_title"]
+                        r = i["release_date"]
+                        print(
+                            f"Pelicula: {t} Año de produccion: {r} y director: {directors[c]}"
+                        )
+                        c += 1
+                    print()
+                except UnboundLocalError:
+                    print("\n" * 10 + "!!!\n\nPrimero carga los datos\n\n!!!")
             elif int(inputs[0]) == 0:  # opcion 0, salir
                 sys.exit(0)
 

@@ -168,6 +168,17 @@ def entender_genero(map_genero, genero):
     return lst, length, avg_vote
 
 
+def pel_countrie(m_pais, m_id_cast, pais):
+    lst = mp.get(m_pais, pais)["value"]
+
+    dir = [
+        mp.get(m_id_cast, i)["value"]["first"]["info"]["director_name"]
+        for i in h.travel(lst, "id")
+    ]
+
+    return lst, dir
+
+
 # ==============================
 # Funciones de Comparacion
 # ==============================

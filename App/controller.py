@@ -80,3 +80,7 @@ def descubrir_productoras(map_productoras, prod):
 
 def entender_genero(map_genero, genero):
     return model.entender_genero(map_genero, genero)
+
+
+def pel_countrie(m_pais, m_id_cast, pais):
+    return model.pel_countrie(m_pais, m_id_cast, pais)
