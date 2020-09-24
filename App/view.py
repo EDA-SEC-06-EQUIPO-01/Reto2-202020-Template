@@ -46,7 +46,7 @@ operación seleccionada.
 
 
 # ___________________________________________________
-#  Funciones para imprimir la inforamación de
+#  Funciones para imprimir la información de
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
@@ -66,52 +66,16 @@ def main():
         if len(inputs) > 0:
 
             if int(inputs[0]) == 1:  # opcion 1
-                # lista_details = controller.load_csv(
-                #     details, impl="ARRAY_LIST", cmpfunction=None
-                # )
-                # lista_casting = controller.load_csv(
-                #     casting, impl="ARRAY_LIST", cmpfunction=None
-                # )
+                casting_key = "id"
+                details_key = "id"
 
-                # IMPORTANT
-                # interface to charge data into a map
-                # add load factor
-
-                casting_key = "director_name"
-                details_key = "genres"
-
-                mp_casting = controller.load_csv_map_byAttribute(
-                    casting, casting_key)
-                mp_details = controller.load_csv_map_byAttribute(
-                    details, details_key)
-
-                # Prueba en consola de que carga los datos correctamente
-
-                print("Se han cargado los mapas details y casting.")
-                print(
-                    f"Del mapa casting, se han cargado {mp.size(mp_casting)} elementos")
-                print(
-                    f"Del mapa details, se han cargado {mp.size(mp_details)} elementos")
-
-                iteration = it.newIterator(mp.keySet(mp_casting))
-                print(
-                    f"\nLas llaves del mapa casting, respecto a la llave {casting_key} son:")
-                while it.hasNext(iteration):
-                    key = it.next(iteration)
-                    print(f'\t{key}')
-
-                iteration = it.newIterator(mp.keySet(mp_details))
-                print(
-                    f"\nLas llaves del mapa details, respecto a la llave {details_key} son:")
-                while it.hasNext(iteration):
-                    key = it.next(iteration)
-                    print(f'\t{key}')
+                mp_casting = controller.load_csv_map_byAtts(
+                    casting, "id")
+                mp_details = controller.load_csv_map_byAtts(
+                    details, "id")
 
                 print(
-                    f"Como prueba final, se mostrará el valor asociado a la llave '{key}' en el map_details:\n")
-                print(mp.get(mp_details, key))
-
-                print()
+                    f"Se crearon los maps:\n\tcasting, con {mp.size(mp_casting)} elementos, ordenado por la llave {casting_key}\n\tdetails, con {mp.size(mp_details)} elementos, ordenado por la llave {details_key}")
 
             elif int(inputs[0]) == 0:  # opcion 0, salir
                 sys.exit(0)

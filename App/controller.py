@@ -62,5 +62,9 @@ def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING"):
     return model.load_csv_map_byAttribute(filepath, attribute, impl)
 
 
+def load_csv_map_byAtts(filepath: str, *atts, impl="CHAINING"):
+    return model.load_csv_map_byAtts(filepath, atts, impl)
+
+
 def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
     return model.load_csv(name, sep, impl, cmpfunction)

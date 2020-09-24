@@ -45,7 +45,7 @@ def timer(func):
         ret = func(*args, **kwargs)
         t2 = process_time()
         print(
-            f"El tiempo que tardó la funcion {func.__name__} fue de {t2 - t1} segundos."
+            f"El tiempo que tardó la funcion {func.__name__} fue de {t2 - t1} segundos.\n"
         )
         return ret
 
@@ -73,9 +73,10 @@ def cmpkey(element, node):
 
 
 @timer
-def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING"):
+def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING", loadfactor=1.0):
     sep = ";"
-    map = mp.newMap(1000, comparefunction=cmpkey)
+    map = mp.newMap(1000, comparefunction=cmpkey,
+                    maptype=impl, loadfactor=loadfactor)
     print(f"Cargando archivo {filepath} {'.'*5}")
     dialect = csv.excel()
     dialect.delimiter = sep
@@ -98,14 +99,41 @@ def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING"):
     return map
 
 
+@timer
+def load_csv_map_byAtts(filepath: str, atts, impl="CHAINING", loadfactor=1.0):
+    sep = ";"
+    map = mp.newMap(1000, comparefunction=cmpkey,
+                    maptype=impl, loadfactor=loadfactor)
+    print(f"Cargando archivo {filepath} {'.'*5}")
+    dialect = csv.excel()
+    dialect.delimiter = sep
+    try:
+        with open(config.data_dir + filepath, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for el in row:
+                for at in atts:
+                    att = el[at]
+                    if mp.contains(map, att):
+                        tmp = mp.get(map, att)["value"]
+                        lt.addLast(tmp, el)
+                        mp.put(map, att, tmp)
+                    else:
+                        tmp_lst = lt.newList()
+                        lt.addLast(tmp_lst, el)
+                        mp.put(map, att, tmp_lst)
+
+    except:
+        print("Hubo un error con la carga del archivo")
+    return map
+
 # Funciones para agregar informacion al catalogo
 
 
 # ==============================
 # Funciones de consulta
 # ==============================
-
-def req1_conocer_un_director():
+@timer
+def req3_conocer_un_actor(nombre: str):
     1
 
 # ==============================
