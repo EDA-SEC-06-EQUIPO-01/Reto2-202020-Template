@@ -99,11 +99,13 @@ def main():
                 )
                 print()
             elif int(inputs[0]) == 3:
-                pass
+                nombre_director = input(
+                    "Digite el nombre del director que desea conocer:\n")
+                controller.req2(casting, details, nombre_director)
+
             elif int(inputs[0]) == 4:
                 nombre_actor = input(
                     "Digite el nombre del actor que desea conocer:\n")
-
                 try:
                     respuesta = controller.req3(
                         casting, nombre_actor, mp_details, mp_casting)
@@ -146,7 +148,8 @@ def main():
                         details, "production_countries"
                     )
 
-                    list, directors = controller.pel_countrie(p, mp_casting, pais)
+                    list, directors = controller.pel_countrie(
+                        p, mp_casting, pais)
                     c = 0
                     for i in h.travel(list):
                         t = i["original_title"]

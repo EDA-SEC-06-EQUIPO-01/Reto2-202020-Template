@@ -88,3 +88,7 @@ def entender_genero(map_genero, genero):
 
 def pel_countrie(m_pais, m_id_cast, pais):
     return model.pel_countrie(m_pais, m_id_cast, pais)
+
+
+def req2(filepath_casting: str, filepath_details: str, director_name: str):
+    return model.req2_conocerDirector(filepath_casting, filepath_details, director_name)
