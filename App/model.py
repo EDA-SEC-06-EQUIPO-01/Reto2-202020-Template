@@ -133,7 +133,7 @@ def load_csv_map_byAtts(filepath: str, atts, impl="CHAINING", loadfactor=1.0):
 # Funciones de consulta
 # ==============================
 @timer
-def req3_conocer_un_actor(filepath_casting: str, nombre: str):
+def req3_conocer_un_actor(filepath_casting: str, nombre: str, casting_por_id, details_por_id):
     mp_actores = load_csv_map_byAtts(
         filepath_casting, ("actor1_name", "actor2_name", "actor3_name", "actor4_name", "actor5_name"))
     try:
@@ -147,9 +147,3 @@ def req3_conocer_un_actor(filepath_casting: str, nombre: str):
 # ==============================
 # Funciones de Comparacion
 # ==============================
-
-movies_dir = "themoviesdb/"
-details = movies_dir + "SmallMoviesDetailsCleaned.csv"
-casting = movies_dir + "MoviesCastingRaw-small.csv"
-
-req3_conocer_un_actor(casting, 'Eetu Hilkamo')
