@@ -26,6 +26,7 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import listiterator as it
 from App import controller
+import helper as h
 
 assert config
 
@@ -82,7 +83,8 @@ def main():
                 genero = input("Digite el género sobre el cuál desea trabajar:\n")
                 g = controller.load_csv_map_byAttribute(details, "genres")
 
-                lista, longitud, promedio = 0, 0, 0
+                lista, longitud, promedio = controller.entender_genero(g, genero)
+
                 cont = 0
                 print("Las películas que tienen dicho género son\n")
                 for i in h.travel(lista, parameter="title"):

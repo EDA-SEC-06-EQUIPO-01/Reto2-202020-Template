@@ -72,3 +72,7 @@ def load_csv_map_byAtts(filepath: str, *atts, impl="CHAINING", loadfactor=1.0):
 
 def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
     return model.load_csv(name, sep, impl, cmpfunction)
+
+
+def entender_genero(map_genero, genero):
+    return model.entender_genero(map_genero, genero)
