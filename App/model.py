@@ -150,6 +150,15 @@ def req3_conocer_un_actor(
         print(f"El actor {nombre} no existe en el archivo csv: {filepath_casting}")
 
 
+def descubrir_productoras(map_productoras, prod):
+    lst = mp.get(map_productoras, prod)["value"]
+    length = lt.size(lst)
+    avg_vote_lst = [int(i["vote_count"]) for i in h.travel(lst)]
+    avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)
+
+    return lst, length, avg_vote
+
+
 def entender_genero(map_genero, genero):
     lst = mp.get(map_genero, genero)["value"]
     length = lt.size(lst)
