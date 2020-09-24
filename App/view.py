@@ -68,19 +68,31 @@ def main():
                 casting_key = "id"
                 details_key = "id"
 
-                mp_casting = controller.load_csv_map_byAtts(
-                    casting, casting_key)
-                mp_details = controller.load_csv_map_byAtts(
-                    details, details_key)
+                mp_casting = controller.load_csv_map_byAtts(casting, casting_key)
+                mp_details = controller.load_csv_map_byAtts(details, details_key)
 
                 print(
-                    f"Se crearon los maps:\n\tcasting, con {mp.size(mp_casting)} elementos, ordenado por la llave {casting_key}\n\tdetails, con {mp.size(mp_details)} elementos, ordenado por la llave {details_key}")
+                    f"Se crearon los maps:\n\tcasting, con {mp.size(mp_casting)} elementos, ordenado por la llave {casting_key}\n\tdetails, con {mp.size(mp_details)} elementos, ordenado por la llave {details_key}"
+                )
             elif int(inputs[0]) == 2:
                 pass
             elif int(inputs[0]) == 3:
                 pass
             elif int(inputs[0]) == 4:
-                pass
+                genero = input("Digite el género sobre el cuál desea trabajar:\n")
+                g = controller.load_csv_map_byAttribute(details, "genres")
+
+                lista, longitud, promedio = 0, 0, 0
+                cont = 0
+                print("Las películas que tienen dicho género son\n")
+                for i in h.travel(lista, parameter="title"):
+                    cont += 1
+                    print(f"{cont}. {i}")
+                print(f"En total son {longitud} películas.")
+                print(
+                    f"El voto promedio para las películas de género {genero} es {promedio}"
+                )
+                print()
             elif int(inputs[0]) == 5:
                 pass
             elif int(inputs[0]) == 6:
