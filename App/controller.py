@@ -20,7 +20,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from App.model import load_csv_map_byAttribute
 import config as cf
 from App import model
 import csv
@@ -45,6 +44,11 @@ def printMenu():
     """
     print("\nBienvenido")
     print("1- Cargar Datos")
+    print("2- Requerimiento 1 - ")
+    print("3- Requerimiento 2 - Conocer a un director")
+    print("4- Requerimiento 3 - Conocer a un actor")
+    print("5- Requerimiento 4 - ")
+    print("6- Requerimiento 5 - ")
     print("0- Salir")
 
 
@@ -62,8 +66,8 @@ def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING"):
     return model.load_csv_map_byAttribute(filepath, attribute, impl)
 
 
-def load_csv_map_byAtts(filepath: str, *atts, impl="CHAINING"):
-    return model.load_csv_map_byAtts(filepath, atts, impl)
+def load_csv_map_byAtts(filepath: str, *atts, impl="CHAINING", loadfactor=1.0):
+    return model.load_csv_map_byAtts(filepath, atts, impl, loadfactor)
 
 
 def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):

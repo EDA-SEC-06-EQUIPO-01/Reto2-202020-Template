@@ -133,9 +133,23 @@ def load_csv_map_byAtts(filepath: str, atts, impl="CHAINING", loadfactor=1.0):
 # Funciones de consulta
 # ==============================
 @timer
-def req3_conocer_un_actor(nombre: str):
-    1
+def req3_conocer_un_actor(filepath_casting: str, nombre: str):
+    mp_actores = load_csv_map_byAtts(
+        filepath_casting, ("actor1_name", "actor2_name", "actor3_name", "actor4_name", "actor5_name"))
+    try:
+        actor = mp.get(mp_actores, nombre)
+        print(actor)
+    except:
+        print(
+            f"El actor {nombre} no existe en el archivo csv: {filepath_casting}")
+
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+movies_dir = "themoviesdb/"
+details = movies_dir + "SmallMoviesDetailsCleaned.csv"
+casting = movies_dir + "MoviesCastingRaw-small.csv"
+
+req3_conocer_un_actor(casting, 'Eetu Hilkamo')

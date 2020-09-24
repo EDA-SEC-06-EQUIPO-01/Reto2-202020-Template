@@ -29,10 +29,6 @@ from App import controller
 
 assert config
 
-movies_dir = "themoviesdb/"
-details = movies_dir + "SmallMoviesDetailsCleaned.csv"
-casting = movies_dir + "MoviesCastingRaw-small.csv"
-
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones y por cada seleccion
@@ -44,6 +40,9 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
+movies_dir = "themoviesdb/"
+details = movies_dir + "SmallMoviesDetailsCleaned.csv"
+casting = movies_dir + "MoviesCastingRaw-small.csv"
 
 # ___________________________________________________
 #  Funciones para imprimir la información de
@@ -70,13 +69,22 @@ def main():
                 details_key = "id"
 
                 mp_casting = controller.load_csv_map_byAtts(
-                    casting, "id")
+                    casting, casting_key)
                 mp_details = controller.load_csv_map_byAtts(
-                    details, "id")
+                    details, details_key)
 
                 print(
                     f"Se crearon los maps:\n\tcasting, con {mp.size(mp_casting)} elementos, ordenado por la llave {casting_key}\n\tdetails, con {mp.size(mp_details)} elementos, ordenado por la llave {details_key}")
-
+            elif int(inputs[0]) == 2:
+                pass
+            elif int(inputs[0]) == 3:
+                pass
+            elif int(inputs[0]) == 4:
+                pass
+            elif int(inputs[0]) == 5:
+                pass
+            elif int(inputs[0]) == 6:
+                pass
             elif int(inputs[0]) == 0:  # opcion 0, salir
                 sys.exit(0)
 
