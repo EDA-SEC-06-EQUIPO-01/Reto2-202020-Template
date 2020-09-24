@@ -26,6 +26,7 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import listiterator as it
 from App import controller
+import helper as h
 
 assert config
 
@@ -74,16 +75,36 @@ def main():
                     details, details_key)
 
                 print(
-                    f"Se crearon los maps:\n\tcasting, con {mp.size(mp_casting)} elementos, ordenado por la llave {casting_key}\n\tdetails, con {mp.size(mp_details)} elementos, ordenado por la llave {details_key}")
-            elif int(inputs[0]) == 2:
-                pass
+                    f"Se crearon los maps:\n\tcasting, con {mp.size(mp_casting)} elementos, ordenado por la llave {casting_key}\n\tdetails, con {mp.size(mp_details)} elementos, ordenado por la llave {details_key}"
+                )
+            elif int(inputs[0]) == 2:  # Reto 1
+                productora = input(
+                    "Digite la productora sobre la cual este interesado:\n"
+                )
+                p = controller.load_csv_map_byAttribute(
+                    details, "production_companies")
+
+                lista, longitud, promedio = controller.descubrir_productoras(
+                    p, productora
+                )
+
+                cont = 0
+                print("Las películas de la productora son\n")
+                for i in h.travel(lista, parameter="title"):
+                    cont += 1
+                    print(f"{cont}. {i}")
+                print(f"En total son {longitud} películas.")
+                print(
+                    f"El voto promedio para las películas de la productora {productora} es {promedio}"
+                )
+                print()
             elif int(inputs[0]) == 3:
                 pass
             elif int(inputs[0]) == 4:
                 nombre_actor = input(
                     "Digite el nombre del actor que desea conocer:\n")
-                if 1:
-                    # try:
+
+                try:
                     respuesta = controller.req3(
                         casting, nombre_actor, mp_details, mp_casting)
                     print(
@@ -94,14 +115,32 @@ def main():
                     print(f"\nEn total, son {respuesta[1]} películas.")
                     print(
                         f"Sus películas obtuvieron una calificación promedio de {respuesta[2]}")
-                # except:
-                    #print("Debe cargar los datos primero!\n")
-                    # continue
+                except:
+                    print("Debe cargar los datos primero!\n")
+                    continue
 
-            elif int(inputs[0]) == 5:
                 pass
+            elif int(inputs[0]) == 5:  # Reto 4
+                genero = input(
+                    "Digite el género sobre el cuál desea trabajar:\n")
+                g = controller.load_csv_map_byAttribute(details, "genres")
+
+                lista, longitud, promedio = controller.entender_genero(
+                    g, genero)
+
+                cont = 0
+                print("Las películas que tienen dicho género son\n")
+                for i in h.travel(lista, parameter="title"):
+                    cont += 1
+                    print(f"{cont}. {i}")
+
+                print(f"En total son {longitud} películas.")
+                print(
+                    f"El voto promedio para las películas de género {genero} es {promedio}"
+                )
+                print()
             elif int(inputs[0]) == 6:
-                pass
+                pais = input("Digite el pais de interes:\n")
             elif int(inputs[0]) == 0:  # opcion 0, salir
                 sys.exit(0)
 

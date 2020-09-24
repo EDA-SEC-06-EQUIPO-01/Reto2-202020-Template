@@ -26,6 +26,8 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.DataStructures import listiterator as it
+import helper as h
+
 assert config
 
 """
@@ -85,14 +87,16 @@ def load_csv_map_byAttribute(filepath: str, attribute, impl="CHAINING", loadfact
             row = csv.DictReader(csvfile, dialect=dialect)
             for el in row:
                 att = el[attribute]
-                if mp.contains(map, att):
-                    tmp = mp.get(map, att)["value"]
-                    lt.addLast(tmp, el)
-                    mp.put(map, att, tmp)
-                else:
-                    tmp_lst = lt.newList()
-                    lt.addLast(tmp_lst, el)
-                    mp.put(map, att, tmp_lst)
+                atts = att.split("|")
+                for e in atts:
+                    if mp.contains(map, e):
+                        tmp = mp.get(map, e)["value"]
+                        lt.addLast(tmp, el)
+                        mp.put(map, e, tmp)
+                    else:
+                        tmp_lst = lt.newList()
+                        lt.addLast(tmp_lst, el)
+                        mp.put(map, e, tmp_lst)
 
     except:
         print("Hubo un error con la carga del archivo")
@@ -126,6 +130,7 @@ def load_csv_map_byAtts(filepath: str, atts, impl="CHAINING", loadfactor=1.0):
         print("Hubo un error con la carga del archivo")
     return map
 
+
 # Funciones para agregar informacion al catalogo
 
 
@@ -137,8 +142,7 @@ def load_csv_map_byAtts(filepath: str, atts, impl="CHAINING", loadfactor=1.0):
 def req3_conocer_un_actor(filepath_casting: str, nombre: str, mp_details, mp_casting):
     mp_actores = load_csv_map_byAtts(
         filepath_casting, ("actor1_name", "actor2_name", "actor3_name", "actor4_name", "actor5_name"))
-    if 1:
-        # try:
+    try:
         actor = mp.get(mp_actores, nombre)['value']
         actor_it = it.newIterator(actor)
 
@@ -154,10 +158,29 @@ def req3_conocer_un_actor(filepath_casting: str, nombre: str, mp_details, mp_cas
         media = sum(votes)/len(votes)
         return movies, mp.size(actor), round(media, 2)
 
-    # except:
-        # print(
-        # f"El actor {nombre} no existe en el archivo csv.")
-        # return None
+    except:
+        print(
+            f"El actor {nombre} no existe en el archivo csv.")
+        return None
+
+
+def descubrir_productoras(map_productoras, prod):
+    lst = mp.get(map_productoras, prod)["value"]
+    length = lt.size(lst)
+    avg_vote_lst = [int(i["vote_count"]) for i in h.travel(lst)]
+    avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)
+
+    return lst, length, avg_vote
+
+
+def entender_genero(map_genero, genero):
+    lst = mp.get(map_genero, genero)["value"]
+    length = lt.size(lst)
+    avg_vote_lst = [int(i["vote_count"]) for i in h.travel(lst)]
+    avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)
+
+    return lst, length, avg_vote
+
 
 # ==============================
 # Funciones de Comparacion

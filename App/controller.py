@@ -44,11 +44,11 @@ def printMenu():
     """
     print("\nBienvenido")
     print("1- Cargar Datos")
-    print("2- Requerimiento 1 - ")
+    print("2- Requerimiento 1 - Descubrir productoras de cine")
     print("3- Requerimiento 2 - Conocer a un director")
     print("4- Requerimiento 3 - Conocer a un actor")
-    print("5- Requerimiento 4 - ")
-    print("6- Requerimiento 5 - ")
+    print("5- Requerimiento 4 - Entender un género cinematográfico")
+    print("6- Requerimiento 5 - Encontrar películas por país")
     print("0- Salir")
 
 
@@ -76,3 +76,11 @@ def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
 
 def req3(filepath_casting: str, nombre: str, mp_details, mp_casting):
     return model.req3_conocer_un_actor(filepath_casting, nombre, mp_details, mp_casting)
+
+
+def descubrir_productoras(map_productoras, prod):
+    return model.descubrir_productoras(map_productoras, prod)
+
+
+def entender_genero(map_genero, genero):
+    return model.entender_genero(map_genero, genero)
