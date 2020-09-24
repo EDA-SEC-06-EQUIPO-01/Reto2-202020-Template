@@ -72,3 +72,7 @@ def load_csv_map_byAtts(filepath: str, *atts, impl="CHAINING", loadfactor=1.0):
 
 def load_csv(name: str, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
     return model.load_csv(name, sep, impl, cmpfunction)
+
+
+def req3(filepath_casting: str, nombre: str, mp_details, mp_casting):
+    return model.req3_conocer_un_actor(filepath_casting, nombre, mp_details, mp_casting)

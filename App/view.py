@@ -80,7 +80,24 @@ def main():
             elif int(inputs[0]) == 3:
                 pass
             elif int(inputs[0]) == 4:
-                pass
+                nombre_actor = input(
+                    "Digite el nombre del actor que desea conocer:\n")
+                if 1:
+                    # try:
+                    respuesta = controller.req3(
+                        casting, nombre_actor, mp_details, mp_casting)
+                    print(
+                        f"Sobre el actor {nombre_actor}:\nParticipó en las películas:\n")
+                    res_iter = it.newIterator(respuesta[0])
+                    while it.hasNext(res_iter):
+                        print(f'\t{it.next(res_iter)}')
+                    print(f"\nEn total, son {respuesta[1]} películas.")
+                    print(
+                        f"Sus películas obtuvieron una calificación promedio de {respuesta[2]}")
+                # except:
+                    #print("Debe cargar los datos primero!\n")
+                    # continue
+
             elif int(inputs[0]) == 5:
                 pass
             elif int(inputs[0]) == 6:
